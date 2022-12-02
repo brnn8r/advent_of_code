@@ -13,11 +13,11 @@ def calculate_result_value(opponent_hand_gesture: HandGesture, your_hand_gesture
 
 
 def calulate_result(opponent_hand_gesture: HandGesture, your_hand_gesture: HandGesture):
-    if type(opponent_hand_gesture) == type(your_hand_gesture):
+    if opponent_hand_gesture == your_hand_gesture:
         return Result.DRAW
-    elif your_hand_gesture.beats(opponent_hand_gesture):
+    elif your_hand_gesture.beats() == opponent_hand_gesture:
         return Result.WIN
-    elif opponent_hand_gesture.beats(your_hand_gesture):
+    elif your_hand_gesture.beaten_by() == opponent_hand_gesture:
         return Result.LOSE
     else:
         raise ValueError("This shouldn't happen :)")

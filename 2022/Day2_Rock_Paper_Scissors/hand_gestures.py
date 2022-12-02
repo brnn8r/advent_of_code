@@ -4,7 +4,10 @@ from dataclasses import dataclass
 
 
 class HandGesture(ABC):
-    pass
+    def __new__(cls):
+        if not hasattr(cls, 'instance'):
+            cls.instance = super(HandGesture, cls).__new__(cls)
+        return cls.instance
 
     @property
     @abstractmethod
@@ -13,15 +16,24 @@ class HandGesture(ABC):
 
     @staticmethod
     @abstractmethod
-    def beats(gesture: type):
+    def beats():
+        pass
+
+    @staticmethod
+    @abstractmethod
+    def beaten_by():
         pass
 
 
 @dataclass
 class Rock(HandGesture):
     @staticmethod
-    def beats(gesture: HandGesture):
-        return type(gesture) == Scissors
+    def beaten_by():
+        return Paper()
+
+    @staticmethod
+    def beats():
+        return Scissors()
 
     @property
     def value(self):
@@ -31,8 +43,12 @@ class Rock(HandGesture):
 @dataclass
 class Paper(HandGesture):
     @staticmethod
-    def beats(gesture: HandGesture):
-        return type(gesture) == Rock
+    def beaten_by():
+        return Scissors()
+
+    @staticmethod
+    def beats():
+        return Rock()
 
     @property
     def value(self):
@@ -42,8 +58,12 @@ class Paper(HandGesture):
 @dataclass
 class Scissors(HandGesture):
     @staticmethod
-    def beats(gesture: HandGesture):
-        return type(gesture) == Paper
+    def beaten_by():
+        return Rock()
+
+    @staticmethod
+    def beats():
+        return Paper()
 
     @property
     def value(self):
