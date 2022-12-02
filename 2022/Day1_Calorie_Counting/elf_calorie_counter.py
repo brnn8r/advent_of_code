@@ -1,7 +1,7 @@
 from backpack_loader import BackpackLoader
 
 def main():
-    meal_list_file = "elf_meal_list.txt"
+    meal_list_file = "input.txt"
     backpack_loader = BackpackLoader(meal_list_file)
     backpacks = backpack_loader.generate_backpack()
 
