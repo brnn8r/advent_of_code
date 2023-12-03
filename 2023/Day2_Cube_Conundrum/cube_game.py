@@ -17,6 +17,9 @@ class CubeGame:
     def is_valid_game(self) -> bool:
         return self.max_drawn_red_cubes <= self.MAX_RED_CUBES and self.max_drawn_green_cubes <= self.MAX_GREEN_CUBES and self.max_drawn_blue_cubes <= self.MAX_BLUE_CUBES
 
+    def power(self) -> int:
+        return self.max_drawn_red_cubes * self.max_drawn_green_cubes * self.max_drawn_blue_cubes
+
 
 def parse_game(game_info: str) -> CubeGame:
     game_id = 0
