@@ -3,10 +3,9 @@ import sys
 sys.path.append('../utils')
 
 import copy
+from typing import List
 from input_loader import InputLoader
-import itertools
-import more_itertools
-from card_game import CardGame
+from card_game import parse_card_game, CardGame
 
 
 def scratch_cards():
@@ -14,7 +13,7 @@ def scratch_cards():
 
     data = InputLoader().get_input_lines()
 
-    card_games = [parse_card_game(line) for line in data]
+    card_games: List[CardGame] = [parse_card_game(line) for line in data]
 
     print(f"Part 1 Total scratch card points: {sum(card_game.card_points for card_game in card_games)}")
 
@@ -44,19 +43,6 @@ def scratch_cards():
 
     print(f"Total number of scratch cards: {len(processed_cards)}")
 
-def parse_card_game(card_line: str) -> CardGame:
-    split_card_line = card_line.split(":")
-
-    card_id = int(split_card_line[0].replace("Card","").replace(" ",""))
-
-    trimmed_card_line_ex_game = [s.strip() for s in "".join(split_card_line[1:]).split("|")]
-
-    card_numbers = set(trimmed_card_line_ex_game[0].split())
-    drawn_numbers = set(trimmed_card_line_ex_game[1].split())
-
-    return CardGame(card_id, card_numbers, drawn_numbers)
-
-    #return  card_numbers, drawn_numbers
 
 
 if __name__ == "__main__":
